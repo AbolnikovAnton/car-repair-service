@@ -5,7 +5,7 @@ export type LangContextValue = {
   lang: Lang
   t: Dict
   dir: 'ltr' | 'rtl'
-  toggle: () => void
+  setLang: (lang: Lang) => void
 }
 
 export const LangContext = createContext<LangContextValue | null>(null)

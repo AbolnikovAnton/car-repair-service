@@ -2,6 +2,7 @@ import { LangProvider } from './i18n/LangProvider'
 import { useLang } from './i18n/context'
 import { useReveal } from './hooks/useReveal'
 import { waLink } from './config'
+import { scrollToTop } from './utils/scroll'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Services } from './components/Services'
@@ -24,7 +25,7 @@ function Page() {
           <Contacts />
           <footer className="footer">
             <div className="container footer__inner">
-              <a href="#top" className="logo logo--sm">
+              <a href="#top" className="logo logo--sm" onClick={scrollToTop}>
                 <span className="logo__mark">P</span>
                 <span className="logo__text">
                   <strong>{t.brand.name}</strong>
@@ -34,9 +35,9 @@ function Page() {
               <p>
                 © {new Date().getFullYear()} {t.brand.name}. {t.footer.rights}
               </p>
-              <a href="#top" className="footer__top">
+              <button type="button" className="footer__top" onClick={() => scrollToTop()}>
                 {t.footer.top} ↑
-              </a>
+              </button>
             </div>
           </footer>
         </div>

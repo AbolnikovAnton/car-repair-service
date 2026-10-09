@@ -1,4 +1,13 @@
-export type Lang = 'ru' | 'he'
+export type Lang = 'he' | 'ru' | 'en'
+
+export const DEFAULT_LANG: Lang = 'he'
+
+// Порядок в меню выбора языка; названия — на самом языке
+export const LANGUAGES: { code: Lang; name: string; short: string; dir: 'ltr' | 'rtl' }[] = [
+  { code: 'he', name: 'עברית', short: 'HE', dir: 'rtl' },
+  { code: 'ru', name: 'Русский', short: 'RU', dir: 'ltr' },
+  { code: 'en', name: 'English', short: 'EN', dir: 'ltr' },
+]
 
 const ru = {
   meta: { title: 'Профессор — сервис Honda' },
@@ -93,7 +102,7 @@ const ru = {
     },
   },
   footer: { rights: 'Все права защищены.', top: 'Наверх' },
-  lang: { switchTo: 'עברית', short: 'HE', label: 'Сменить язык' },
+  lang: { label: 'Язык' },
   theme: { toLight: 'Светлая тема', toDark: 'Тёмная тема' },
 }
 
@@ -192,8 +201,105 @@ const he: Dict = {
     },
   },
   footer: { rights: 'כל הזכויות שמורות.', top: 'למעלה' },
-  lang: { switchTo: 'Русский', short: 'RU', label: 'החלפת שפה' },
+  lang: { label: 'שפה' },
   theme: { toLight: 'מצב בהיר', toDark: 'מצב כהה' },
 }
 
-export const dicts: Record<Lang, Dict> = { ru, he }
+const en: Dict = {
+  meta: { title: 'Professor — Honda Service' },
+  brand: { name: 'Professor', sub: 'Honda Service' },
+  nav: { home: 'Home', services: 'Services', reviews: 'Reviews', contacts: 'Contact', menu: 'Menu', close: 'Close' },
+  hero: {
+    badge: 'Honda specialist garage',
+    titleA: 'Professor',
+    titleB: 'of Honda servicing',
+    titleC: 'and beyond',
+    slogan: 'VIP service for every client',
+    cta: 'Book a visit',
+    ctaSecondary: 'Our services',
+    stats: [
+      { value: '15+', label: 'years of experience' },
+      { value: '4.9★', label: 'average rating' },
+      { value: '12 mo', label: 'warranty on work' },
+    ],
+    scroll: 'Scroll down',
+    artAlt: 'White 2024 Honda Jazz on a scissor lift with a mechanic in blue overalls underneath',
+  },
+  services: {
+    kicker: 'What we do',
+    title: 'Services',
+    subtitle: 'Everything your car needs — from scheduled maintenance to suspension repair',
+    items: [
+      { id: 'oil', title: 'Oil & filter change', text: 'Engine oil, oil, air and cabin filters' },
+      { id: 'cvt', title: 'CVT fluid change', text: 'Genuine Honda HCF-2 fluid and relearn after the change' },
+      { id: 'at', title: 'Automatic transmission fluid', text: 'Partial or full ATF change with a gearbox check' },
+      { id: 'mt', title: 'Manual gearbox oil', text: 'Gear oil change and leak inspection' },
+      { id: 'fuelFilter', title: 'Fuel filter replacement', text: 'Clean fuel for a smooth, steady engine' },
+      { id: 'plugs', title: 'Spark plug replacement', text: 'Iridium plugs and ignition coil diagnostics' },
+      { id: 'belts', title: 'Belt replacement', text: 'Drive belt, tensioners and idler pulleys' },
+      { id: 'brakes', title: 'Brakes', text: 'Pads, discs and calipers — safety comes first' },
+      { id: 'cooling', title: 'Cooling system', text: 'Coolant change, radiator, water pump and thermostat check' },
+      { id: 'brakeSystem', title: 'Brake system', text: 'Brake fluid change, bleeding and ABS diagnostics' },
+      { id: 'fuelSystem', title: 'Fuel system', text: 'Injector and throttle body cleaning, fuel pump check' },
+      { id: 'suspension', title: 'Suspension parts', text: 'Shock absorbers, control arms, bushings and stabilizer links' },
+    ],
+    cta: 'Book a service',
+  },
+  reviews: {
+    kicker: 'Reviews',
+    title: 'Client reviews',
+    subtitle: 'People trust us with their cars',
+    rating: 'Average rating',
+    prev: 'Previous review',
+    next: 'Next review',
+    items: [
+      { name: 'Dmitry K.', car: 'Honda Jazz 2019', text: 'They changed the CVT fluid in an hour and the car drives like new. Everything explained in plain words, old parts shown.' },
+      { name: 'Olga M.', car: 'Honda CR-V', text: 'Real VIP treatment: coffee, a clean waiting area and a report with photos. This is my garage from now on.' },
+      { name: 'Avraham L.', car: 'Toyota Corolla', text: "I came in a Toyota, not a Honda — and the work was still excellent. Brakes replaced the same day." },
+      { name: 'Svetlana R.', car: 'Honda Civic', text: 'Fair price and no upselling. The mechanic really is a professor!' },
+      { name: 'Yossi B.', car: 'Honda HR-V', text: 'Booked via WhatsApp and got an answer in five minutes. Suspension done quickly and carefully.' },
+      { name: 'Marina T.', car: 'Honda Jazz 2024', text: 'Scheduled service on a new car with the warranty kept intact — plus a reminder for the next visit.' },
+    ],
+  },
+  contacts: {
+    kicker: 'Contact',
+    title: 'Visit us or send a message',
+    subtitle: 'We reply on WhatsApp within 15 minutes',
+    phone: 'Phone',
+    whatsapp: 'WhatsApp',
+    whatsappAction: 'Message us on WhatsApp',
+    address: 'Address',
+    addressValue: '7 HaMusachim St, Rishon LeZion',
+    hours: 'Opening hours',
+    hoursValue: 'Sun–Thu 8:00–18:00 · Fri 8:00–13:00',
+    mapTitle: 'Map',
+    form: {
+      title: 'Book a service',
+      name: 'Your name',
+      phone: 'Phone',
+      car: 'Car model',
+      carPlaceholder: 'e.g. Honda Jazz 2024',
+      service: 'Service',
+      servicePlaceholder: 'Choose a service',
+      serviceOther: 'Other / diagnostics',
+      message: 'Comment',
+      submit: 'Send via WhatsApp',
+      note: 'The button opens WhatsApp with a ready-made message',
+      required: 'Required field',
+      sent: 'Opening WhatsApp…',
+      template: {
+        hello: "Hello! I'd like to book a service.",
+        name: 'Name',
+        phone: 'Phone',
+        car: 'Car',
+        service: 'Service',
+        message: 'Comment',
+      },
+    },
+  },
+  footer: { rights: 'All rights reserved.', top: 'Back to top' },
+  lang: { label: 'Language' },
+  theme: { toLight: 'Light theme', toDark: 'Dark theme' },
+}
+
+export const dicts: Record<Lang, Dict> = { he, ru, en }

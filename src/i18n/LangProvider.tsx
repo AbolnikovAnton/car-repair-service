@@ -1,36 +1,41 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { dicts, type Lang } from './dict'
+import { DEFAULT_LANG, LANGUAGES, dicts, type Lang } from './dict'
 import { LangContext, type LangContextValue } from './context'
 
 const STORAGE_KEY = 'lang'
 
+const isLang = (v: unknown): v is Lang => LANGUAGES.some((l) => l.code === v)
+
 function initialLang(): Lang {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved === 'ru' || saved === 'he') return saved
+    if (isLang(saved)) return saved
   } catch {
     /* storage недоступен */
   }
-  return navigator.language?.startsWith('he') ? 'he' : 'ru'
+  return DEFAULT_LANG
 }
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>(initialLang)
-  const dir = lang === 'he' ? 'rtl' : 'ltr'
+  const [lang, setLangState] = useState<Lang>(initialLang)
+  const dir = LANGUAGES.find((l) => l.code === lang)?.dir ?? 'ltr'
 
   useEffect(() => {
     document.documentElement.lang = lang
     document.documentElement.dir = dir
     document.title = dicts[lang].meta.title
+  }, [lang, dir])
+
+  const setLang = useCallback((next: Lang) => {
+    setLangState(next)
     try {
-      localStorage.setItem(STORAGE_KEY, lang)
+      localStorage.setItem(STORAGE_KEY, next)
     } catch {
       /* storage недоступен */
     }
-  }, [lang, dir])
+  }, [])
 
-  const toggle = useCallback(() => setLang((l) => (l === 'ru' ? 'he' : 'ru')), [])
-  const value = useMemo<LangContextValue>(() => ({ lang, t: dicts[lang], dir, toggle }), [lang, dir, toggle])
+  const value = useMemo<LangContextValue>(() => ({ lang, t: dicts[lang], dir, setLang }), [lang, dir, setLang])
 
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>
 }

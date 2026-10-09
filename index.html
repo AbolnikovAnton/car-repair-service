@@ -1,23 +1,29 @@
 <!doctype html>
-<html lang="ru" dir="ltr">
+<html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#070a10" />
-    <meta name="description" content="Профессор — VIP-сервис по обслуживанию Honda и других автомобилей" />
-    <title>Профессор — сервис Honda</title>
+    <meta name="description" content="פרופסור — שירות VIP לטיפול בהונדה ולא רק" />
+    <title>פרופסור — שירות הונדה</title>
     <script>
-      // Тема ставится до отрисовки, чтобы не было вспышки тёмного экрана
+      // Тема и язык ставятся до отрисовки, чтобы не было вспышки и прыжка вёрстки
       (function () {
-        var theme
+        var root = document.documentElement
+        var theme, lang
         try {
           theme = localStorage.getItem('theme')
+          lang = localStorage.getItem('lang')
         } catch (e) {}
         if (theme !== 'light' && theme !== 'dark') {
           theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
         }
-        document.documentElement.dataset.theme = theme
+        root.dataset.theme = theme
+        if (lang === 'ru' || lang === 'en') {
+          root.lang = lang
+          root.dir = 'ltr'
+        }
       })()
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

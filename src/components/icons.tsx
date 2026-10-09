@@ -166,7 +166,20 @@ export const MoonIcon = (p: IconProps) => (
   </svg>
 )
 
-export const QuoteIcon =(p: IconProps) => (
+export const GlobeIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" />
+  </svg>
+)
+
+export const CheckIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M5 12.5l4.5 4.5L19 7.5" />
+  </svg>
+)
+
+export const QuoteIcon = (p: IconProps) => (
   <svg {...base(p)} fill="currentColor" stroke="none">
     <path d="M4 18v-5.5C4 8.4 6.2 6 10 5.5v3c-1.8.4-2.8 1.6-2.8 3.5H10v6H4zm10 0v-5.5c0-4.1 2.2-6.5 6-7v3c-1.8.4-2.8 1.6-2.8 3.5H20v6h-6z" />
   </svg>
