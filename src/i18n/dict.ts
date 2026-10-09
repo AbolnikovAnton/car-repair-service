@@ -94,6 +94,7 @@ const ru = {
   },
   footer: { rights: 'Все права защищены.', top: 'Наверх' },
   lang: { switchTo: 'עברית', short: 'HE', label: 'Сменить язык' },
+  theme: { toLight: 'Светлая тема', toDark: 'Тёмная тема' },
 }
 
 export type Dict = typeof ru
@@ -192,6 +193,7 @@ const he: Dict = {
   },
   footer: { rights: 'כל הזכויות שמורות.', top: 'למעלה' },
   lang: { switchTo: 'Русский', short: 'RU', label: 'החלפת שפה' },
+  theme: { toLight: 'מצב בהיר', toDark: 'מצב כהה' },
 }
 
 export const dicts: Record<Lang, Dict> = { ru, he }

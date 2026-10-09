@@ -1,8 +1,9 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import { useLang } from '../i18n/context'
 import { useActiveSection } from '../hooks/useActiveSection'
+import { useTheme } from '../hooks/useTheme'
 import { CONTACTS } from '../config'
-import { PhoneIcon } from './icons'
+import { MoonIcon, PhoneIcon, SunIcon } from './icons'
 
 const SECTION_IDS = ['top', 'services', 'reviews', 'contacts']
 
@@ -11,6 +12,8 @@ export function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const active = useActiveSection(SECTION_IDS)
+  const { theme, toggle: toggleTheme } = useTheme()
+  const themeLabel = theme === 'dark' ? t.theme.toLight : t.theme.toDark
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -54,6 +57,9 @@ export function Header() {
         </nav>
 
         <div className="header__actions">
+          <button type="button" className="theme-switch" onClick={toggleTheme} aria-label={themeLabel} title={themeLabel}>
+            {theme === 'dark' ? <SunIcon key="sun" width={20} height={20} /> : <MoonIcon key="moon" width={20} height={20} />}
+          </button>
           <button type="button" className="lang-switch" onClick={toggle} aria-label={t.lang.label} title={t.lang.switchTo}>
             {t.lang.short}
           </button>

@@ -1,16 +1,17 @@
 import { useRef, type CSSProperties } from 'react'
 import { useLang } from '../i18n/context'
+import { useDragScroll, scrollStep } from '../hooks/useDragScroll'
 import { ChevronIcon, QuoteIcon, StarIcon } from './icons'
 
 export function Reviews() {
   const { t, dir } = useLang()
   const track = useRef<HTMLUListElement>(null)
+  useDragScroll(track, '.review-card')
 
   const scroll = (step: 1 | -1) => {
     const el = track.current
     if (!el) return
-    const card = el.querySelector<HTMLElement>('.review-card')
-    const w = card ? card.offsetWidth + 24 : el.clientWidth
+    const w = scrollStep(el, '.review-card')
     // В RTL «вперёд» — это влево
     el.scrollBy({ left: step * w * (dir === 'rtl' ? -1 : 1), behavior: 'smooth' })
   }

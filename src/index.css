@@ -11,10 +11,77 @@
   --gold: #e8c27a;
   --blue: #3a7bff;
   --wa: #25d366;
+  --error: #ff7b7b;
+  --text-soft: #dce2eb;
+  --ghost-bg: rgba(255, 255, 255, 0.04);
+  --ghost-border: rgba(255, 255, 255, 0.18);
+  --ghost-border-hover: rgba(255, 255, 255, 0.4);
+  --ghost-bg-hover: rgba(255, 255, 255, 0.08);
+  --header-bg: rgba(7, 10, 16, 0.78);
+  --menu-bg: rgba(7, 10, 16, 0.97);
+  --hero-1: #0a0f18;
+  --hero-2: #070a10;
+  --hero-floor: #10151f;
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --floor-line: rgba(255, 255, 255, 0.025);
+  --hairline: rgba(255, 255, 255, 0.25);
+  --sheet-shadow: rgba(0, 0, 0, 0.8);
+  --num: rgba(255, 255, 255, 0.22);
+  --icon-color: #fff;
+  --field-bg: rgba(0, 0, 0, 0.3);
+  --placeholder: #5e6a7c;
+  --card-shadow: none;
+  --map-filter: invert(0.92) hue-rotate(180deg) saturate(0.6) brightness(0.95);
   --radius: 20px;
   --header-h: 76px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f5f7fa;
+  --bg-2: #eaeef4;
+  --surface: #ffffff;
+  --surface-2: #ffffff;
+  --border: rgba(15, 23, 42, 0.1);
+  --text: #0f1623;
+  --muted: #5b6678;
+  --accent-2: #d63a22;
+  --gold: #a8741a;
+  --error: #d11a2a;
+  --text-soft: #2a3342;
+  --ghost-bg: rgba(15, 23, 42, 0.04);
+  --ghost-border: rgba(15, 23, 42, 0.16);
+  --ghost-border-hover: rgba(15, 23, 42, 0.32);
+  --ghost-bg-hover: rgba(15, 23, 42, 0.07);
+  --header-bg: rgba(245, 247, 250, 0.82);
+  --menu-bg: rgba(245, 247, 250, 0.97);
+  --hero-1: #e6ecf5;
+  --hero-2: #f3f6fa;
+  --hero-floor: #dce3ed;
+  --grid-line: rgba(15, 23, 42, 0.05);
+  --floor-line: rgba(15, 23, 42, 0.04);
+  --hairline: rgba(15, 23, 42, 0.12);
+  --sheet-shadow: rgba(15, 23, 42, 0.18);
+  --num: rgba(15, 23, 42, 0.2);
+  --icon-color: #c81e27;
+  --field-bg: #f5f7fa;
+  --placeholder: #98a2b3;
+  --card-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 30px -14px rgba(15, 23, 42, 0.18);
+  --map-filter: none;
+  color-scheme: light;
+}
+
+/* Плавная смена темы: класс вешается на <html> на время переключения */
+.theme-anim,
+.theme-anim *,
+.theme-anim *::before,
+.theme-anim *::after {
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    color 0.4s ease,
+    box-shadow 0.4s ease !important;
 }
 
 *,
@@ -146,15 +213,15 @@ textarea {
 }
 
 .btn--ghost {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--ghost-bg);
+  border-color: var(--ghost-border);
   color: var(--text);
   backdrop-filter: blur(8px);
 }
 
 .btn--ghost:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--ghost-border-hover);
+  background: var(--ghost-bg-hover);
 }
 
 .btn--wa {
@@ -193,7 +260,7 @@ textarea {
 
 .header--scrolled,
 .header--open {
-  background: rgba(7, 10, 16, 0.78);
+  background: var(--header-bg);
   backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
   border-bottom-color: var(--border);
@@ -223,6 +290,7 @@ textarea {
   border-radius: 12px;
   background: linear-gradient(135deg, var(--accent), #8f0f16);
   font-weight: 900;
+  color: #fff;
   font-size: 22px;
   box-shadow: 0 6px 20px -6px rgba(229, 37, 47, 0.8);
 }
@@ -311,6 +379,34 @@ textarea {
   color: var(--gold);
 }
 
+.theme-switch {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s;
+}
+
+.theme-switch:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.theme-switch svg {
+  animation: spinIn 0.5s var(--ease);
+}
+
+@keyframes spinIn {
+  from {
+    transform: rotate(-90deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
 .burger {
   display: none;
   position: relative;
@@ -382,7 +478,7 @@ main {
   background:
     radial-gradient(60% 50% at 70% 10%, rgba(58, 123, 255, 0.16), transparent 70%),
     radial-gradient(50% 40% at 15% 30%, rgba(229, 37, 47, 0.14), transparent 70%),
-    linear-gradient(180deg, #0a0f18 0%, #070a10 62%, #10151f 62.2%, #070a10 100%);
+    linear-gradient(180deg, var(--hero-1) 0%, var(--hero-2) 62%, var(--hero-floor) 62.2%, var(--hero-2) 100%);
   transform: scale(calc(1 + var(--p) * 0.06));
 }
 
@@ -391,8 +487,8 @@ main {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(70% 60% at 50% 30%, #000 30%, transparent 75%);
 }
@@ -425,8 +521,8 @@ main {
   inset: 62% 0 0;
   background:
     radial-gradient(40% 30% at 70% 0%, rgba(140, 170, 255, 0.12), transparent 70%),
-    repeating-linear-gradient(90deg, transparent 0 120px, rgba(255, 255, 255, 0.025) 120px 122px);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+    repeating-linear-gradient(90deg, transparent 0 120px, var(--floor-line) 120px 122px);
+  border-top: 1px solid var(--border);
 }
 
 .hero__inner {
@@ -495,7 +591,7 @@ main {
   margin-top: 22px;
   font-size: clamp(18px, 1.8vw, 22px);
   font-weight: 500;
-  color: #dfe5ee;
+  color: var(--text-soft);
 }
 
 .hero__slogan-line {
@@ -677,7 +773,7 @@ main {
   z-index: 1;
   background: var(--bg);
   border-radius: 36px 36px 0 0;
-  box-shadow: 0 -30px 80px -20px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 -30px 80px -20px var(--sheet-shadow);
 }
 
 .sheet::before {
@@ -686,7 +782,7 @@ main {
   top: 0;
   inset-inline: 10%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: linear-gradient(90deg, transparent, var(--hairline), transparent);
 }
 
 .section {
@@ -775,6 +871,7 @@ main {
 
 .service-card {
   position: relative;
+  box-shadow: var(--card-shadow);
   padding: 28px 24px 26px;
   border-radius: var(--radius);
   background: linear-gradient(180deg, var(--surface-2), var(--surface));
@@ -818,7 +915,7 @@ main {
   inset-inline-end: 20px;
   font-size: 13px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.22);
+  color: var(--num);
   letter-spacing: 0.06em;
 }
 
@@ -830,8 +927,8 @@ main {
   height: 56px;
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(229, 37, 47, 0.22), rgba(58, 123, 255, 0.14));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
+  border: 1px solid var(--border);
+  color: var(--icon-color);
   transition: transform 0.4s var(--ease);
 }
 
@@ -911,7 +1008,24 @@ main {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  overscroll-behavior-x: contain;
   padding-block: 8px 24px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .reviews__track {
+    cursor: grab;
+  }
+}
+
+.reviews__track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.reviews__track.is-dragging .review-card {
+  pointer-events: none;
 }
 
 .reviews__track::-webkit-scrollbar {
@@ -920,6 +1034,7 @@ main {
 
 .review-card {
   position: relative;
+  box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;
   padding: 30px 28px 26px;
@@ -947,7 +1062,7 @@ main {
   margin-top: 16px;
   font-size: 16px;
   line-height: 1.65;
-  color: #d8dee8;
+  color: var(--text-soft);
 }
 
 .review-card__author {
@@ -983,6 +1098,7 @@ main {
   border-radius: 50%;
   background: linear-gradient(135deg, var(--blue), #1a47b0);
   font-weight: 700;
+  color: #fff;
   font-size: 18px;
 }
 
@@ -1002,6 +1118,7 @@ main {
 
 .info-card {
   display: flex;
+  box-shadow: var(--card-shadow);
   align-items: center;
   gap: 16px;
   padding: 20px;
@@ -1070,11 +1187,12 @@ a.info-card:hover {
   width: 100%;
   height: 100%;
   border: 0;
-  filter: invert(0.92) hue-rotate(180deg) saturate(0.6) brightness(0.95);
+  filter: var(--map-filter);
 }
 
 .form {
   display: grid;
+  box-shadow: var(--card-shadow);
   gap: 18px;
   padding: 34px;
   border-radius: 28px;
@@ -1112,7 +1230,7 @@ a.info-card:hover {
   padding: 13px 16px;
   border-radius: 14px;
   border: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--field-bg);
   transition: border-color 0.25s, box-shadow 0.25s;
   resize: vertical;
 }
@@ -1123,7 +1241,7 @@ a.info-card:hover {
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: #5e6a7c;
+  color: var(--placeholder);
 }
 
 .field input:focus,
@@ -1144,7 +1262,7 @@ a.info-card:hover {
 
 .field__error {
   font-size: 13px;
-  color: #ff7b7b;
+  color: var(--error);
 }
 
 .form__note {
@@ -1256,7 +1374,7 @@ a.info-card:hover {
     padding: calc(var(--header-h) + 32px) 24px 32px;
     background:
       radial-gradient(80% 50% at 100% 0%, rgba(229, 37, 47, 0.2), transparent 70%),
-      rgba(7, 10, 16, 0.97);
+      var(--menu-bg);
     backdrop-filter: blur(20px);
     clip-path: circle(0 at calc(100% - 46px) 34px);
     visibility: hidden;
@@ -1360,7 +1478,7 @@ a.info-card:hover {
     background:
       radial-gradient(80% 40% at 70% 10%, rgba(58, 123, 255, 0.16), transparent 70%),
       radial-gradient(70% 40% at 15% 30%, rgba(229, 37, 47, 0.14), transparent 70%),
-      linear-gradient(180deg, #0a0f18 0%, #070a10 74%, #10151f 74.2%, #070a10 100%);
+      linear-gradient(180deg, var(--hero-1) 0%, var(--hero-2) 74%, var(--hero-floor) 74.2%, var(--hero-2) 100%);
   }
 
   .section {
@@ -1385,6 +1503,10 @@ a.info-card:hover {
 
   .logo__text small {
     display: none;
+  }
+
+  .header__actions {
+    gap: 8px;
   }
 
   .hero__title {

@@ -153,7 +153,20 @@ export const ArrowDownIcon = (p: IconProps) => (
   </svg>
 )
 
-export const QuoteIcon = (p: IconProps) => (
+export const SunIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+  </svg>
+)
+
+export const MoonIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />
+  </svg>
+)
+
+export const QuoteIcon =(p: IconProps) => (
   <svg {...base(p)} fill="currentColor" stroke="none">
     <path d="M4 18v-5.5C4 8.4 6.2 6 10 5.5v3c-1.8.4-2.8 1.6-2.8 3.5H10v6H4zm10 0v-5.5c0-4.1 2.2-6.5 6-7v3c-1.8.4-2.8 1.6-2.8 3.5H20v6h-6z" />
   </svg>
